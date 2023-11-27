@@ -9,6 +9,8 @@ var _models = _interopRequireDefault(require("./../models"));
 var _path = _interopRequireDefault(require("path"));
 var _fsExtra = _interopRequireDefault(require("fs-extra"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+// Importa y configura dotenv
+require('dotenv').config();
 class UsuarioController {
   async create_usuario(req, res) {
     try {
@@ -29,7 +31,7 @@ class UsuarioController {
           const des = req.file.destination; //la capeta destino
           const targetPath = _path.default.resolve(`${des}/uploadUser/${nombreImagen}${ext}`); // destino del archivo
 
-          const targetSimplificado = `${process.env.HOST ?? "http://localhost"}:${process.env.PORT ?? 4000}/upload/uploadUser/${nombreImagen}${ext}`;
+          const targetSimplificado = `${process.env.HOST ?? `http://localhost:${process.env.PORT}`}/upload/uploadUser/${nombreImagen}${ext}`;
           if (ext === ".jpg" || ext === ".png" || ext === ".jpeg") {
             await _fsExtra.default.rename(imageTempPath, targetPath);
             nuevoUsuario.contrasena_us = await _bcrypt.default.hash(nuevoUsuario.contrasena_us, 12);
@@ -55,7 +57,7 @@ class UsuarioController {
             });
           }
         } else {
-          const imagenDefecto = `${process.env.HOST || "http://localhost"}:${process.env.PORT ?? 4000}/upload/uploadUser/defecto-usuario.png`;
+          const imagenDefecto = `${process.env.HOST ?? `http://localhost:${process.env.PORT}`}/upload/uploadUser/defecto-usuario.png`;
           nuevoUsuario.contrasena_us = await _bcrypt.default.hash(nuevoUsuario.contrasena_us, 12);
           const Usuario = await _models.default.usuario.create({
             id_empleado: nuevoUsuario.id_empleado,
@@ -197,8 +199,8 @@ class UsuarioController {
           const ext = _path.default.extname(req.file.originalname).toLowerCase(); // la extension en minuscula
           const des = req.file.destination; //la capeta destino
           const targetPath = _path.default.resolve(`${des}/uploadUser/${nombreImagen}${ext}`); // destino del archivo
-
-          const targetSimplificado = `${process.env.HOST ?? "http://localhost"}:${process.env.PORT ?? 4000}/upload/uploadUser/${nombreImagen}${ext}`;
+          console.log('ESTO ES EL TARGETPHATH', targetPath);
+          const targetSimplificado = `${process.env.HOST ?? `http://localhost:${process.env.PORT}`}/upload/uploadUser/${nombreImagen}${ext}`;
           if (ext === ".jpg" || ext === ".png" || ext === ".jpeg") {
             await _fsExtra.default.rename(imageTempPath, targetPath);
             nuevoUsuario.contrasena_us = await _bcrypt.default.hash(nuevoUsuario.contrasena_us, 12);
@@ -227,7 +229,8 @@ class UsuarioController {
             });
           }
         } else {
-          const imagenDefecto = `${process.env.HOST || "http://localhost"}:${process.env.PORT ?? 4000}/upload/uploadUser/defecto-usuario.png`;
+          const imagenDefecto = `${process.env.HOST ?? `http://localhost:${process.env.PORT}`}
+          /upload/uploadUser/defecto-usuario.png`;
           nuevoUsuario.contrasena_us = await _bcrypt.default.hash(nuevoUsuario.contrasena_us, 12);
           const Usuario = await _models.default.usuario.update({
             //id_empleado: nuevoUsuario.id_empleado,

@@ -10,7 +10,7 @@ class DashboardController {
   async cantidadParticipantesPorCiudadaes(req, res) {
     try {
       const ciudadesParticipantes = await _models.default.ciudad.findAll({
-        attributes: ["nombre_ciudad", [_models.default.sequelize.fn("COUNT", _models.default.sequelize.col("Personas.Personas.id_persona")), "value"]],
+        attributes: ["nombre_ciudad", [_models.default.sequelize.fn("COUNT", _models.default.sequelize.col("personas.Personas.id_persona")), "value"]],
         include: [{
           model: _models.default.persona,
           as: "personas",
@@ -49,7 +49,7 @@ class DashboardController {
   async cantidadParticipantePorSexo(req, res) {
     try {
       const sexoParticipantes = await _models.default.sexo.findAll({
-        attributes: ["nombre_sexo", [_models.default.sequelize.fn("COUNT", _models.default.sequelize.col("Personas.Personas.id_persona")), "value"]],
+        attributes: ["nombre_sexo", [_models.default.sequelize.fn("COUNT", _models.default.sequelize.col("personas.Personas.id_persona")), "value"]],
         include: [{
           model: _models.default.persona,
           as: "personas",

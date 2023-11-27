@@ -5,13 +5,11 @@ var _router = require("./router");
 var _cors = _interopRequireDefault(require("cors"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 /// 1 importar modulos terceros
-//require('dotenv').config()
+require('dotenv').config();
 // import dotenv from 'dotenv'
 // dotenv.config()
 //const express = require ("express");
-
 // 5 nueva alternativa para rutas
-
 // 2. declarar variables auxiliares
 const puerto = process.env.PORT ?? 4000;
 
