@@ -28,9 +28,7 @@ class UsuarioController {
           ); // destino del archivo
 
           const targetSimplificado = `${
-            process.env.HOST ?? "http://localhost"
-          }:${
-            process.env.PORT ?? 4000
+            process.env.HOST ?? `http://localhost:${process.env.PORT}`
           }/upload/uploadUser/${nombreImagen}${ext}`;
 
           if (ext === ".jpg" || ext === ".png" || ext === ".jpeg") {
@@ -63,8 +61,7 @@ class UsuarioController {
             });
           }
         } else {
-          const imagenDefecto = `${process.env.HOST || "http://localhost"}:${
-            process.env.PORT ?? 4000
+          const imagenDefecto = `${process.env.HOST ?? `http://localhost:${process.env.PORT}`
           }/upload/uploadUser/defecto-usuario.png`;
 
           nuevoUsuario.contrasena_us = await bcrypt.hash(
@@ -227,11 +224,9 @@ class UsuarioController {
           const targetPath = path.resolve(
             `${des}/uploadUser/${nombreImagen}${ext}`
           ); // destino del archivo
-
+            console.log('ESTO ES EL TARGETPHATH',targetPath)
           const targetSimplificado = `${
-            process.env.HOST ?? "http://localhost"
-          }:${
-            process.env.PORT ?? 4000
+            process.env.HOST ?? `http://localhost:${process.env.PORT}`
           }/upload/uploadUser/${nombreImagen}${ext}`;
 
           if (ext === ".jpg" || ext === ".png" || ext === ".jpeg") {
@@ -268,9 +263,8 @@ class UsuarioController {
             });
           }
         } else {
-          const imagenDefecto = `${process.env.HOST || "http://localhost"}:${
-            process.env.PORT ?? 4000
-          }/upload/uploadUser/defecto-usuario.png`;
+          const imagenDefecto = `${process.env.HOST ?? `http://localhost:${process.env.PORT}`}
+          /upload/uploadUser/defecto-usuario.png`;
 
           nuevoUsuario.contrasena_us = await bcrypt.hash(
             nuevoUsuario.contrasena_us,

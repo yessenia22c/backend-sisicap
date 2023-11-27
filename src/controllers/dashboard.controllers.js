@@ -6,7 +6,7 @@ class DashboardController {
             const ciudadesParticipantes = await models.ciudad.findAll({
                 attributes: [
                     "nombre_ciudad",
-                    [models.sequelize.fn("COUNT", models.sequelize.col("Personas.Personas.id_persona")), "value"],
+                    [models.sequelize.fn("COUNT", models.sequelize.col("personas.Personas.id_persona")), "value"],
                 ],
                 include: [
                     {
@@ -51,7 +51,7 @@ class DashboardController {
             const sexoParticipantes = await models.sexo.findAll({
                 attributes: [
                     "nombre_sexo",
-                    [models.sequelize.fn("COUNT", models.sequelize.col("Personas.Personas.id_persona")), "value"],
+                    [models.sequelize.fn("COUNT", models.sequelize.col("personas.Personas.id_persona")), "value"],
                 ],
                 include: [
                     {

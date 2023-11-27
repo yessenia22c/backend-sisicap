@@ -138,17 +138,14 @@ class TipoUsuarioController {
           });
         }
       }
+    
     async asignarNivelesATipoUsuario(req, res) {
         const listaNiveles = req.body.niveles;
-        console.log('NIVELES QUE LLEGAN',req.body)
+        //console.log('NIVELES QUE LLEGAN', req.body);
         try {
-
-            // mostrar los accesos actuales que tiene el tipo de usuario
-            
-            
-            const  nivelAcceso = await models.acceso.findAll({
+            // Obtener los accesos actuales del tipo de usuario
+            const accesosActuales = await models.acceso.findAll({
                 attributes: [],
-                where: {id_tipo_usuario: req.body.id_tipo_usuario},
                 include: [
                     {
                         model: models.nivel,
@@ -158,43 +155,139 @@ class TipoUsuarioController {
                     order: [
                         [{ model: models.nivel, as: "NivelAcceso" }, "nombre_nivel", "ASC"],
                     ],
-            })
-            // const accesos = Object.values(nivelAcceso)
-            // console.log('ACCESOS QUE TINW',accesos)
-            //
-            
-            listaNiveles.forEach(async (element) => {
-
-                const existe = await models.acceso.findOne({
-                    where: { id_tipo_usuario: req.body.id_tipo_usuario, id_nivel: element.id_nivel }
-                })
-                if(!existe){
-                    const crearAcesso = await models.acceso.create({
-                        id_tipo_usuario: req.body.id_tipo_usuario,
-                        id_nivel: element.id_nivel
-                    })
-                }
-                //console.log( 'ELEMENT', element,'Lo incluye?');
-
-                //si existe el acceso pero no esta en la listaNiveles entonces lo elimino
-                // if(existe && !listaNiveles.includes(element.id_nivel)){
-                //     const eliminarAcceso = await models.acceso.destroy({
-                //         where: { id_tipo_usuario: req.body.id_tipo_usuario, id_nivel: element.id_nivel }
-                //     })
-                // }
+                where: { id_tipo_usuario: req.body.id_tipo_usuario },
             });
-
+            const nivelAccesoList = accesosActuales.map(item => ({
+                            id_nivel: item.NivelAcceso.id_nivel,
+                            nombre_nivel: item.NivelAcceso.nombre_nivel
+                          }));
+            // Crear nuevos accesos para los niveles en listaNiveles que no existen
+            const nuevosAccesos = listaNiveles.filter((nivel) => {
+                return !nivelAccesoList.some((acceso) => {
+                    //console.log('NIVEL',nivel.id_nivel,'ACCESO',acceso.id_nivel)
+                    return nivel.id_nivel === acceso.id_nivel;
+                });
+            });
+    
+            await Promise.all(
+                nuevosAccesos.map(async (nivel) => {
+                    await models.acceso.create({
+                        id_tipo_usuario: req.body.id_tipo_usuario,
+                        id_nivel: nivel.id_nivel,
+                    });
+                })
+            );
+    
+            // Eliminar accesos para los niveles que están en la base de datos pero no en listaNiveles
+            const accesosAEliminar = nivelAccesoList.filter((acceso) => {
+                return !listaNiveles.some((nivel) => {
+                    //console.log('NIVEL ELIMINAR',nivel.id_nivel,'ACCESO ELIMINAR',acceso.id_nivel)
+                    return nivel.id_nivel === acceso.id_nivel;
+                });
+            });
+    
+            await Promise.all(
+                accesosAEliminar.map(async (acceso) => {
+                    await models.acceso.destroy({
+                        where: {
+                            id_tipo_usuario: req.body.id_tipo_usuario,
+                            id_nivel: acceso.id_nivel,
+                        },
+                    });
+                })
+            );
+    
             res.status(200).json({
                 status: 200,
-                mensaje: "Niveles asignados correctamente"
-            })
+                mensaje: "Niveles asignados correctamente",
+            });
         } catch (error) {
             res.status(500).json({
                 status: 500,
-                mensaje: error.message
-            })
+                mensaje: error.message,
+            });
         }
     }
+    
+    
+    // async asignarNivelesATipoUsuario(req, res) {
+    //     const listaNiveles = req.body.niveles;
+    //     //let listaAcessosNiveles = []
+    //     console.log('NIVELES QUE LLEGAN',req.body)
+    //     try {
+
+    //         // mostrar los accesos actuales que tiene el tipo de usuario
+            
+            
+    //         const  nivelAcceso = await models.acceso.findAll({
+    //             attributes: [],
+    //             where: {id_tipo_usuario: req.body.id_tipo_usuario},
+    //             include: [
+    //                 {
+    //                     model: models.nivel,
+    //                     as: "NivelAcceso",
+    //                     attributes: ["id_nivel","nombre_nivel"],
+    //                 }],
+    //                 order: [
+    //                     [{ model: models.nivel, as: "NivelAcceso" }, "nombre_nivel", "ASC"],
+    //                 ],
+    //         })
+    //         // const accesos = Object.values(nivelAcceso)
+    //         // console.log('ACCESOS QUE TINW',accesos)
+    //         //
+
+    //         const nivelAccesoList = nivelAcceso.map(item => ({
+    //             id_nivel: item.NivelAcceso.id_nivel,
+    //             nombre_nivel: item.NivelAcceso.nombre_nivel
+    //           }));
+    //         console.log('NIVELES QUE TIENE',nivelAccesoList)
+           
+    //         //Quita los los niveles que no vienen en la listaNiveles
+            
+    //         for(let i = 0; i < nivelAccesoList.length; i++){
+    //             for(let j = 0; j < listaNiveles.length; j++){
+    //                 console.log(nivelAccesoList[i].id_nivel == listaNiveles[j].id_nivel)
+    //                 // if(nivelAccesoList[i].id_nivel == listaNiveles[j].id_nivel){
+    //                 //     nivelAccesoList.splice(i,1)
+    //                 // }
+    //             }
+
+    //         }
+
+    //         //Asiganar los nuevos niveles
+    //         listaNiveles.forEach(async (element) => {
+
+    //             const existe = await models.acceso.findOne({
+    //                 where: { id_tipo_usuario: req.body.id_tipo_usuario, id_nivel: element.id_nivel }
+    //             })
+    //             if(!existe){
+    //                 const crearAcesso = await models.acceso.create({
+    //                     id_tipo_usuario: req.body.id_tipo_usuario,
+    //                     id_nivel: element.id_nivel
+    //                 })
+    //             }
+    //             //console.log( 'ELEMENT', element,'Lo incluye?');
+
+    //             //si existe el acceso pero no esta en la listaNiveles entonces lo elimino
+    //             // if(existe && !listaNiveles.includes(element.id_nivel)){
+    //             //     const eliminarAcceso = await models.acceso.destroy({
+    //             //         where: { id_tipo_usuario: req.body.id_tipo_usuario, id_nivel: element.id_nivel }
+    //             //     })
+    //             // }
+    //         });
+
+    //         res.status(200).json({
+    //             status: 200,
+    //             mensaje: "Niveles asignados correctamente"
+    //         })
+    //     } catch (error) {
+    //         console.log('ERROR',error)
+    //         res.status(500).json({
+    //             status: 500,
+    //             mensaje: error.message
+    //         })
+    //     }
+    // }
     async update_tipo_usuario(req, res) {
         try {
             const existe = await models.tipo_usuario.findOne({

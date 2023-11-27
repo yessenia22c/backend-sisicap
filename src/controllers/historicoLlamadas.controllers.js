@@ -219,6 +219,7 @@ class HistoricoController {
             },
           }
         );
+        //Solucionar hay un error en el formatear la fecga actualizacion
         const historico = await models.historico_llamadas.update(
           {
             id_grupo_seguimiento: dataToUpdate.id_grupo_seguimiento,
@@ -235,7 +236,10 @@ class HistoricoController {
             },
           }
         );
-        if(existeContacto.observacion_llamada != dataToUpdate.observacion_llamada){
+        //console.log("existeCambios?", existeHistorico.dataValues.observacion_llamada)
+        if( existeHistorico.dataValues.observacion_llamada != dataToUpdate.observacion_llamada){
+          //Error aqui  existeContacto.observacion_llamada esto es undefine y siempre guarda cambios
+          //console.log("entro observacion llamada", existeHistorico.dataValues.observacion_llamada, 'VAlor nuevo ', dataToUpdate.observacion_llamada)
           //registrar cambios en historial_seguimiento
           const cambios = await models.historial_seguimiento.create({
             id_historico: dataToUpdate.id_historico,
