@@ -1,25 +1,25 @@
 {
   "development": {
-    "username": "hyirxuta_sisicap",
-    "password": "Eliteisosrl2023*",
-    "database": "hyirxuta_bd_sigesca",
-    "host": "75.102.22.82",
+    "username": "awyd7q35ydycxhicgjhy",
+    "password": "pscale_pw_8k0rlzPc0iufDbDLcVHAfw92z360CeCzK3Qh6Caynee",
+    "database": "sisicap",
+    "host": "aws.connect.psdb.cloud",
     "dialect": "mysql",
     "timezone": "-04:00" 
   },
   "test": {
-    "username": "hyirxuta_sisicap",
-    "password": "Eliteisosrl2023*",
-    "database": "hyirxuta_bd_sigesca",
-    "host": "75.102.22.82",
+    "username": "awyd7q35ydycxhicgjhy",
+    "password": "pscale_pw_8k0rlzPc0iufDbDLcVHAfw92z360CeCzK3Qh6Caynee",
+    "database": "sisicap",
+    "host": "aws.connect.psdb.cloud",
     "dialect": "mysql",
     "timezone": "-04:00"
   },
   "production": {
-    "username": "hyirxuta_sisicap",
-    "password": "Eliteisosrl2023*",
-    "database": "hyirxuta_bd_sigesca",
-    "host": "75.102.22.82",
+    "username": "awyd7q35ydycxhicgjhy",
+    "password": "pscale_pw_8k0rlzPc0iufDbDLcVHAfw92z360CeCzK3Qh6Caynee",
+    "database": "sisicap",
+    "host": "aws.connect.psdb.cloud",
     "dialect": "mysql",
     "timezone": "-04:00"
   }
