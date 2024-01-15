@@ -21,7 +21,7 @@ const puerto = process.env.PORT ?? 4000;
 let app = express();
 
 //8. habilitar cors
-const listaBlanca = ['http://localhost:4200']
+const listaBlanca = ['http://localhost:4200','https://ec8cad8f.cliente-8na.pages.dev']
 app.use(cors({origin: listaBlanca}))
 
 //9. carga de archivos estaticos
