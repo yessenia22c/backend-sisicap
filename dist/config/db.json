@@ -1,0 +1,26 @@
+{
+  "development": {
+    "username": "hyirxuta_sisicap",
+    "password": "Eliteisosrl2023*",
+    "database": "hyirxuta_bd_sigesca",
+    "host": "75.102.22.82",
+    "dialect": "mysql",
+    "timezone": "-04:00" 
+  },
+  "test": {
+    "username": "hyirxuta_sisicap",
+    "password": "Eliteisosrl2023*",
+    "database": "hyirxuta_bd_sigesca",
+    "host": "75.102.22.82",
+    "dialect": "mysql",
+    "timezone": "-04:00"
+  },
+  "production": {
+    "username": "hyirxuta_sisicap",
+    "password": "Eliteisosrl2023*",
+    "database": "hyirxuta_bd_sigesca",
+    "host": "75.102.22.82",
+    "dialect": "mysql",
+    "timezone": "-04:00"
+  }
+}
