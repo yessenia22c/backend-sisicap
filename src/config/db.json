@@ -1,26 +1,47 @@
 {
   "development": {
-    "username": "hyirxuta_sisicap",
-    "password": "Eliteisosrl2023*",
-    "database": "hyirxuta_bd_sigesca",
-    "host": "75.102.22.82",
+    "username": "02tkq6wutpw788hl35vf",
+    "password": "pscale_pw_Tl46mUinAgzxyoY6ENCorZxEME1hdcsxV9YVVFsActW",
+    "database": "sisicap",
+    "host": "us-east.connect.psdb.cloud",
     "dialect": "mysql",
-    "timezone": "-04:00" 
+    "timezone": "-04:00",  
+    "dialectOptions": {
+      "useUTC": false,
+      "ssl": {
+        "require": true,
+        "rejectUnauthorized": false
+      }
+    }
   },
   "test": {
-    "username": "hyirxuta_sisicap",
-    "password": "Eliteisosrl2023*",
-    "database": "hyirxuta_bd_sigesca",
-    "host": "75.102.22.82",
+    "username": "02tkq6wutpw788hl35vf",
+    "password": "pscale_pw_Tl46mUinAgzxyoY6ENCorZxEME1hdcsxV9YVVFsActW",
+    "database": "sisicap",
+    "host": "us-east.connect.psdb.cloud",
     "dialect": "mysql",
-    "timezone": "-04:00"
+    "timezone": "-04:00",
+    "dialectOptions": {
+      "useUTC": false,
+      "ssl": {
+        "require": true,
+        "rejectUnauthorized": false
+      }
+    }
   },
   "production": {
-    "username": "hyirxuta_sisicap",
-    "password": "Eliteisosrl2023*",
-    "database": "hyirxuta_bd_sigesca",
-    "host": "75.102.22.82",
+    "username": "02tkq6wutpw788hl35vf",
+    "password": "pscale_pw_Tl46mUinAgzxyoY6ENCorZxEME1hdcsxV9YVVFsActW",
+    "database": "sisicap",
+    "host": "us-east.connect.psdb.cloud",
     "dialect": "mysql",
-    "timezone": "-04:00"
+    "timezone": "-04:00",
+    "dialectOptions": {
+      "useUTC": false,
+      "ssl": {
+        "require": true,
+        "rejectUnauthorized": false
+      }
+    } 
   }
 }

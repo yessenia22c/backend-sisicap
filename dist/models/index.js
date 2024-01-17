@@ -9,17 +9,9 @@ const config = require(__dirname + '/../config/db.json')[env];
 const db = {};
 let sequelize;
 if (config.use_env_variable) {
-  sequelize = new Sequelize(process.env[config.use_env_variable], config);
+  sequelize = new Sequelize(process.env[config.use_env_variable], config, config.dialectOptions);
 } else {
-  sequelize = new Sequelize(config.database, config.username, config.password, config, 
-    { host:config.host, 
-      dialect: 'mysql', 
-      dialectOptions: {
-        ssl: {
-          rejectUnauthorized: true,}
-        }
-      }
-      );
+  sequelize = new Sequelize(config.database, config.username, config.password, config, config.dialectOptions);
 }
 fs.readdirSync(__dirname).filter(file => {
   return file.indexOf('.') !== 0 && file !== basename && file.slice(-3) === '.js';
