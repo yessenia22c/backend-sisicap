@@ -20,6 +20,9 @@ const puerto = process.env.PORT ?? 4000;
 
 let app = express();
 
+app.get('/',(req,res)=>{
+   res.send('<h1>Backend Listo apra usar </h1>')
+})
 //8. habilitar cors
 const listaBlanca = ['http://localhost:4200','https://ff80ca5a.cliente-angular-9k9.pages.dev','https://cliente-angular-9k9.pages.dev', process.env.FRONTEND_URL]
 app.use(cors({origin: listaBlanca}))
@@ -33,6 +36,7 @@ app.use(express.urlencoded({extended:true}))
 
 
 // 6 habilitar rutas
+
 app.use('/api/v1',Route)
 
 // 4. levantar el servidor express
