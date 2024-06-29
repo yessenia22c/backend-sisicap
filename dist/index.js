@@ -18,7 +18,7 @@ const puerto = process.env.PORT ?? 4000;
 let app = (0, _express.default)();
 
 //8. habilitar cors
-const listaBlanca = ['http://localhost:4200','https://ff80ca5a.cliente-angular-9k9.pages.dev','https://cliente-angular-9k9.pages.dev'];
+const listaBlanca = ['http://localhost:4200', 'https://ff80ca5a.cliente-angular-9k9.pages.dev', 'https://cliente-angular-9k9.pages.dev', process.env.FRONTEND_URL];
 app.use((0, _cors.default)({
   origin: listaBlanca
 }));
