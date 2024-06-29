@@ -8,7 +8,7 @@
     "rewrites": [
       {
         "source": "/(.*)",
-        "destination": "/src/router/index.js"
+        "destination": "/src/index.js"
       }
     ]
   }
