@@ -15,7 +15,7 @@ import multer from "multer"
 
 
 //importamos controlador de reporte
-import * as reporte_Fa_CapController from "../controllers/reporteFacilitadoresCapacitaciones.controllers.js"
+
 import * as generaPdfInscripcionesControllers from "../controllers/reporteInscripciones.controllers.js"
 import { grupoSeguimientoController } from "../controllers/grupoSeguimiento.controllers.js";
 import { contactoController } from "../controllers/contacto.controllers.js";
@@ -170,7 +170,7 @@ Route.delete('/capacitacion/eliminarInscripcion/:id_inscripcion',auth,inscripcio
 
 
 //Generadores de pdf
-Route.get('/reporte/facilitadores/pdf/',reporte_Fa_CapController.generaPdf_reporte_fa_cap)
+
 Route.get('/reporte/inscritos/pdf/:id_capacitacion',auth,verificarNivelPermiso(25),generaPdfInscripcionesControllers.generaPdfInscripciones)
 
 
