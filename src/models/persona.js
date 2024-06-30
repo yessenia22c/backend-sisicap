@@ -22,10 +22,6 @@ module.exports = (sequelize, DataTypes) => {
         as:'PersonaEmpleado', foreignKey:'id_persona'
       })
 
-      models.persona.hasOne(models.facilitador,{
-        as:'PersonaFacilitador', foreignKey:'id_persona'
-      })
-
       // Asociones con  ** REVISAR DESPUES
       models.persona.hasOne(models.participante,{
         as:'Personas',foreignKey:'id_persona'

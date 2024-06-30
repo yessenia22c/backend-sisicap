@@ -7,7 +7,7 @@ import {usuarioController} from "../controllers/usuario.controllers.js";
 import {participanteController} from "../controllers/participante.controllers.js";
 import {capacitacionController} from "../controllers/capacitacion.controllers.js";
 import {inscripcionCapacitacionController} from "../controllers/inscripcionCapacitacion.controllers.js";
-import { facilitadorController } from "../controllers/facilitador.controllers.js";
+
 
 import {auth, verificarNivelPermiso} from "../middlewares/auth.middleware.js"
 
@@ -17,7 +17,6 @@ import multer from "multer"
 //importamos controlador de reporte
 import * as reporte_Fa_CapController from "../controllers/reporteFacilitadoresCapacitaciones.controllers.js"
 import * as generaPdfInscripcionesControllers from "../controllers/reporteInscripciones.controllers.js"
-import { facilitadorCapacitacionController } from "../controllers/informe_facilitador_capacitacion.controllers.js";
 import { grupoSeguimientoController } from "../controllers/grupoSeguimiento.controllers.js";
 import { contactoController } from "../controllers/contacto.controllers.js";
 import { historicoController } from "../controllers/historicoLlamadas.controllers.js";
@@ -150,11 +149,6 @@ Route.get('/participante/participantesAll',auth,participanteController.personasN
 
 Route.get('/participante/codigo/:codigo_participante',participanteController.buscar_codigo)
 
-Route.post('/facilitador/create',auth,facilitadorController.create_facilitador)
-Route.get('/facilitador/read/:id_facilitador',facilitadorController.read_facilitador)
-Route.get('/facilitador/readAll',facilitadorController.readAll_facilitador)
-Route.put('/facilitador/update',facilitadorController.update_facilitador)
-Route.delete('/facilitador/delete/:id_facilitador',facilitadorController.delete_facilitador)
 
 
 
@@ -174,10 +168,6 @@ Route.get('/participantes/inscritos/:id_capacitacion',auth,inscripcionCapacitaci
 Route.get('/participantes/disponibles/:id_capacitacion',auth,inscripcionCapacitacionController.getParticipantesNoInscritos)
 Route.delete('/capacitacion/eliminarInscripcion/:id_inscripcion',auth,inscripcionCapacitacionController.eliminarUnParticipanteInscrito)
 
-
-Route.post('/capacitacion/facilitador/:id_capacitacion',facilitadorCapacitacionController.asignar_facilitador_capacitacion)
-Route.get('/facilitador/asignado/:id_capacitacion',facilitadorCapacitacionController.facilitador_asigado)
-Route.get('/facilitadores/capacitaciones/',auth,facilitadorCapacitacionController.facilitadorCapacitaciones_readAll)
 
 //Generadores de pdf
 Route.get('/reporte/facilitadores/pdf/',reporte_Fa_CapController.generaPdf_reporte_fa_cap)

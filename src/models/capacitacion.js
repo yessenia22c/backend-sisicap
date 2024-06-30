@@ -20,9 +20,6 @@ module.exports = (sequelize, DataTypes) => {
         as: 'Capacitaciones',foreignKey:'id_capacitacion'
       })
 
-      models.capacitacion.hasMany(models.informe_facilitador_capacitacion,{
-        as: 'Capacitacion_dada',foreignKey:'id_capacitacion'
-      })
       models.capacitacion.hasMany(models.grupo_seguimiento,{
         as: 'Capacitacion',foreignKey:'id_capacitacion'
       })
