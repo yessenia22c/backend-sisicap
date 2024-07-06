@@ -126,7 +126,8 @@ class GrupoSeguimientoController {
               as: "PersonaEmpleado",
               attributes: ["id_persona", "nombres_per", "apellidos"]
             }]
-          }]
+          }],
+          order: [["createdAt", "DESC"]]
         });
         if (Grupo_seguimiento) {
           res.status(200).json({
@@ -161,7 +162,8 @@ class GrupoSeguimientoController {
               as: "PersonaEmpleado",
               attributes: ["id_persona", "nombres_per", "apellidos"]
             }]
-          }]
+          }],
+          order: [["createdAt", "DESC"]]
         });
         if (Grupo_seguimiento) {
           res.status(200).json({

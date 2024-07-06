@@ -94,9 +94,10 @@ class CapacitacionController {
           model: _models.default.categoria,
           as: 'Categoria',
           attributes: ['id_categoria', 'nombre_categoria'] //Cambio ahora devolvemos el id_capacitacion
-        }]
-      });
+        }],
 
+        order: [["createdAt", "DESC"]]
+      });
       if (Capacitacion) {
         res.status(200).json({
           status: 200,
