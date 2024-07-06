@@ -13,12 +13,9 @@ var _usuarioControllers = require("../controllers/usuario.controllers.js");
 var _participanteControllers = require("../controllers/participante.controllers.js");
 var _capacitacionControllers = require("../controllers/capacitacion.controllers.js");
 var _inscripcionCapacitacionControllers = require("../controllers/inscripcionCapacitacion.controllers.js");
-var _facilitadorControllers = require("../controllers/facilitador.controllers.js");
 var _authMiddleware = require("../middlewares/auth.middleware.js");
 var _multer = _interopRequireDefault(require("multer"));
-var reporte_Fa_CapController = _interopRequireWildcard(require("../controllers/reporteFacilitadoresCapacitaciones.controllers.js"));
 var generaPdfInscripcionesControllers = _interopRequireWildcard(require("../controllers/reporteInscripciones.controllers.js"));
-var _informe_facilitador_capacitacionControllers = require("../controllers/informe_facilitador_capacitacion.controllers.js");
 var _grupoSeguimientoControllers = require("../controllers/grupoSeguimiento.controllers.js");
 var _contactoControllers = require("../controllers/contacto.controllers.js");
 var _historicoLlamadasControllers = require("../controllers/historicoLlamadas.controllers.js");
@@ -86,16 +83,16 @@ Route.get('/user/read/:id', _authMiddleware.auth, _userControllers.userControlle
 Route.get('/user/readAll', _authMiddleware.auth, _userControllers.userController.readAll_user);
 Route.put('/user/update', _authMiddleware.auth, _userControllers.userController.update_user);
 Route.delete('/user/delete/:id', _authMiddleware.auth, _userControllers.userController.delete_user);
-Route.post('/persona/create', _authMiddleware.auth, _personaControllers.personaController.create_persona);
+Route.post('/persona/create', _authMiddleware.auth, (0, _authMiddleware.verificarNivelPermiso)(10), _personaControllers.personaController.create_persona);
 Route.get('/persona/read/:id_persona', _personaControllers.personaController.read_persona);
 Route.get('/persona/readAll', _authMiddleware.auth, (0, _authMiddleware.verificarNivelPermiso)(10), _personaControllers.personaController.readAll_persona);
-Route.put('/persona/update', _personaControllers.personaController.update_persona);
+Route.put('/persona/update', _authMiddleware.auth, (0, _authMiddleware.verificarNivelPermiso)(10), _personaControllers.personaController.update_persona);
 Route.delete('/persona/delete/:id_persona', _personaControllers.personaController.delete_persona);
 Route.get('/pais/readAll', _authMiddleware.auth, _personaControllers.personaController.readAll_Pais);
 Route.get('/ciudad/readAll', _authMiddleware.auth, _personaControllers.personaController.readAll_Ciudad);
 Route.get('/sexo/readAll', _authMiddleware.auth, _personaControllers.personaController.readAll_Sexo);
 Route.post('/empleado/create', _authMiddleware.auth, (0, _authMiddleware.verificarNivelPermiso)(30), _empleadoControllers.empleadoController.create_empleado);
-Route.post('/empleado/asignarNuevo', _authMiddleware.auth, _empleadoControllers.empleadoController.create_AsignarEmpleado);
+Route.post('/empleado/asignarNuevo', _authMiddleware.auth, (0, _authMiddleware.verificarNivelPermiso)(30), _empleadoControllers.empleadoController.create_AsignarEmpleado);
 Route.get('/empleado/read/:id_empleado', _empleadoControllers.empleadoController.read_empleado);
 Route.get('/empleado/readAll', _authMiddleware.auth, (0, _authMiddleware.verificarNivelPermiso)(29), _empleadoControllers.empleadoController.readAll_empleado);
 Route.put('/empleado/update', _authMiddleware.auth, (0, _authMiddleware.verificarNivelPermiso)(31), _empleadoControllers.empleadoController.update_empleado);
@@ -121,11 +118,6 @@ Route.put('/participante/update', _authMiddleware.auth, (0, _authMiddleware.veri
 Route.delete('/participante/delete/:id_participante', _authMiddleware.auth, (0, _authMiddleware.verificarNivelPermiso)(21), _participanteControllers.participanteController.delete_participante);
 Route.get('/participante/participantesAll', _authMiddleware.auth, _participanteControllers.participanteController.personasNoParticipantes);
 Route.get('/participante/codigo/:codigo_participante', _participanteControllers.participanteController.buscar_codigo);
-Route.post('/facilitador/create', _authMiddleware.auth, _facilitadorControllers.facilitadorController.create_facilitador);
-Route.get('/facilitador/read/:id_facilitador', _facilitadorControllers.facilitadorController.read_facilitador);
-Route.get('/facilitador/readAll', _facilitadorControllers.facilitadorController.readAll_facilitador);
-Route.put('/facilitador/update', _facilitadorControllers.facilitadorController.update_facilitador);
-Route.delete('/facilitador/delete/:id_facilitador', _facilitadorControllers.facilitadorController.delete_facilitador);
 Route.post('/capacitacion/create', _authMiddleware.auth, (0, _authMiddleware.verificarNivelPermiso)(4), _capacitacionControllers.capacitacionController.create_capacitacion);
 Route.get('/capacitacion/read/:id_capacitacion', _authMiddleware.auth, _capacitacionControllers.capacitacionController.read_capacitacion);
 Route.get('/capacitacion/readAll', _authMiddleware.auth, (0, _authMiddleware.verificarNivelPermiso)(9), _capacitacionControllers.capacitacionController.readAll_capacitacion);
@@ -139,12 +131,9 @@ Route.post('/capacitacion/participantes/nuevos/', _authMiddleware.auth, (0, _aut
 Route.get('/participantes/inscritos/:id_capacitacion', _authMiddleware.auth, _inscripcionCapacitacionControllers.inscripcionCapacitacionController.participantes_inscritos);
 Route.get('/participantes/disponibles/:id_capacitacion', _authMiddleware.auth, _inscripcionCapacitacionControllers.inscripcionCapacitacionController.getParticipantesNoInscritos);
 Route.delete('/capacitacion/eliminarInscripcion/:id_inscripcion', _authMiddleware.auth, _inscripcionCapacitacionControllers.inscripcionCapacitacionController.eliminarUnParticipanteInscrito);
-Route.post('/capacitacion/facilitador/:id_capacitacion', _informe_facilitador_capacitacionControllers.facilitadorCapacitacionController.asignar_facilitador_capacitacion);
-Route.get('/facilitador/asignado/:id_capacitacion', _informe_facilitador_capacitacionControllers.facilitadorCapacitacionController.facilitador_asigado);
-Route.get('/facilitadores/capacitaciones/', _authMiddleware.auth, _informe_facilitador_capacitacionControllers.facilitadorCapacitacionController.facilitadorCapacitaciones_readAll);
 
 //Generadores de pdf
-Route.get('/reporte/facilitadores/pdf/', reporte_Fa_CapController.generaPdf_reporte_fa_cap);
+
 Route.get('/reporte/inscritos/pdf/:id_capacitacion', _authMiddleware.auth, (0, _authMiddleware.verificarNivelPermiso)(25), generaPdfInscripcionesControllers.generaPdfInscripciones);
 
 //Seguimiento de llamadas
@@ -172,13 +161,13 @@ Route.get('/historicoLlamadas/readAllCambios/:id_historico', _authMiddleware.aut
 
 //Tipos de usuarios tipoUsuario
 
-Route.post('/tipoUsuario/create', _authMiddleware.auth, _tipo_usuarioControllers.tipoUsuarioController.create_tipo_usuario);
+Route.post('/tipoUsuario/create', _authMiddleware.auth, (0, _authMiddleware.verificarNivelPermiso)(34), _tipo_usuarioControllers.tipoUsuarioController.create_tipo_usuario);
 Route.get('/tipoUsuario/read/:id_tipo_usuario', _authMiddleware.auth, _tipo_usuarioControllers.tipoUsuarioController.read_tipo_usuario);
 Route.put('/tipoUsuario/update', _authMiddleware.auth, _tipo_usuarioControllers.tipoUsuarioController.update_tipo_usuario);
 Route.get('/tipoUsuario/readAll', _authMiddleware.auth, _tipo_usuarioControllers.tipoUsuarioController.readAll_tipo_usuario);
 Route.get('/nivelAcceso/tipoUsuario/:id_tipo_usuario', _authMiddleware.auth, _tipo_usuarioControllers.tipoUsuarioController.nivelAccesoTipoUsuario);
 Route.get('/niveles/readAll', _authMiddleware.auth, _tipo_usuarioControllers.tipoUsuarioController.niveles_readAll);
-Route.post('/nivelAcceso/asignar', _authMiddleware.auth, _tipo_usuarioControllers.tipoUsuarioController.asignarNivelesATipoUsuario);
+Route.post('/nivelAcceso/asignar', _authMiddleware.auth, (0, _authMiddleware.verificarNivelPermiso)(34), _tipo_usuarioControllers.tipoUsuarioController.asignarNivelesATipoUsuario);
 Route.delete('/tipoUsuario/delete/:id_tipo_usuario', _authMiddleware.auth, _tipo_usuarioControllers.tipoUsuarioController.delete_tipo_usuario);
 
 //dashboard
