@@ -100,10 +100,10 @@ Route.delete('/user/delete/:id',auth,userController.delete_user)
 
 
 
-Route.post('/persona/create',auth,personaController.create_persona)
+Route.post('/persona/create',auth,verificarNivelPermiso(10),personaController.create_persona)
 Route.get('/persona/read/:id_persona',personaController.read_persona)
 Route.get('/persona/readAll',auth,verificarNivelPermiso(10),personaController.readAll_persona)
-Route.put('/persona/update',personaController.update_persona)
+Route.put('/persona/update',auth,verificarNivelPermiso(10),personaController.update_persona)
 Route.delete('/persona/delete/:id_persona',personaController.delete_persona)
 
 
@@ -115,7 +115,7 @@ Route.get('/sexo/readAll',auth,personaController.readAll_Sexo)
 
 
 Route.post('/empleado/create',auth,verificarNivelPermiso(30),empleadoController.create_empleado)
-Route.post('/empleado/asignarNuevo',auth,empleadoController.create_AsignarEmpleado)
+Route.post('/empleado/asignarNuevo',auth,verificarNivelPermiso(30),empleadoController.create_AsignarEmpleado)
 
 Route.get('/empleado/read/:id_empleado',empleadoController.read_empleado)
 Route.get('/empleado/readAll',auth,verificarNivelPermiso(29),empleadoController.readAll_empleado)
@@ -206,13 +206,13 @@ Route.get('/historicoLlamadas/readAllCambios/:id_historico',auth,historicoContro
 
 //Tipos de usuarios tipoUsuario
 
-Route.post('/tipoUsuario/create',auth,tipoUsuarioController.create_tipo_usuario)
+Route.post('/tipoUsuario/create',auth,verificarNivelPermiso(34),tipoUsuarioController.create_tipo_usuario)
 Route.get('/tipoUsuario/read/:id_tipo_usuario',auth,tipoUsuarioController.read_tipo_usuario)
 Route.put('/tipoUsuario/update',auth,tipoUsuarioController.update_tipo_usuario)
 Route.get('/tipoUsuario/readAll',auth,tipoUsuarioController.readAll_tipo_usuario)
 Route.get('/nivelAcceso/tipoUsuario/:id_tipo_usuario',auth,tipoUsuarioController.nivelAccesoTipoUsuario)
 Route.get('/niveles/readAll',auth,tipoUsuarioController.niveles_readAll)
-Route.post('/nivelAcceso/asignar',auth,tipoUsuarioController.asignarNivelesATipoUsuario)
+Route.post('/nivelAcceso/asignar',auth,verificarNivelPermiso(34),tipoUsuarioController.asignarNivelesATipoUsuario)
 Route.delete('/tipoUsuario/delete/:id_tipo_usuario',auth,tipoUsuarioController.delete_tipo_usuario)
 
 
