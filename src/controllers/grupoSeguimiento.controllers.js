@@ -134,6 +134,7 @@ class GrupoSeguimientoController {
                     ],
                 },
             ],
+            order: [[ "createdAt", "DESC"]]
           });
           if (Grupo_seguimiento) {
                 res.status(200).json({
@@ -175,6 +176,7 @@ class GrupoSeguimientoController {
                     ],
                 },
             ],
+            order: [[ "createdAt", "DESC"]]
           });
           if (Grupo_seguimiento) {
                 res.status(200).json({

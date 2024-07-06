@@ -96,7 +96,8 @@ class CapacitacionController{
                         as: 'Categoria',            
                         attributes: ['id_categoria','nombre_categoria'],//Cambio ahora devolvemos el id_capacitacion
                         }
-                    ]
+                    ],
+                    order: [[ "createdAt", "DESC"]]
                 })
                  
                     if(Capacitacion){
